@@ -7,10 +7,13 @@ import { UsersModule } from './users/users.module';
 import { ProvidersModule } from './providers/providers.module';
 import { AvailabilityModule } from './availability/availability.module';
 import { BookingsModule } from './bookings/bookings.module';
+import { ConfigModule } from '@nestjs/config';
+
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, ProvidersModule, AvailabilityModule, BookingsModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule, AuthModule, UsersModule, ProvidersModule, AvailabilityModule, BookingsModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
