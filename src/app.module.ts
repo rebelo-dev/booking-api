@@ -10,11 +10,12 @@ import { BookingsModule } from './bookings/bookings.module';
 import { ConfigModule } from '@nestjs/config';
 import { SlotsService } from './slots/slots.service';
 import { SlotsController } from './slots/slots.controller';
+import { AppointmentsModule } from './appointments/appointments.module';
 
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
-    PrismaModule, AuthModule, UsersModule, ProvidersModule, AvailabilityModule, BookingsModule],
+    PrismaModule, AuthModule, UsersModule, ProvidersModule, AvailabilityModule, BookingsModule, AppointmentsModule],
   controllers: [AppController, SlotsController],
   providers: [AppService, SlotsService],
 })
