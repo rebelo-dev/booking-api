@@ -33,4 +33,46 @@ export class AvailabilityService {
             orderBy: { startTime: 'asc' },
         });
     }
+
+    async getAvailableSlots(providerId: string) {
+        const availability = await this.prisma.availability.findMany({
+            where: { providerId },
+        });
+
+        const appointments = await this.prisma.appointment.findMany({
+            where: {
+                providerId,
+                status: {
+                    not: 'CANCELLED',
+                },
+            },
+        });
+
+        const slots: { startTime: Date; endTime: Date }[] = [];
+
+        for (const a of availability) {
+            let current = new Date(a.startTime);
+
+            while (current < a.endTime) {
+                const next = new Date(current.getTime() + 30 * 60000);
+
+                const isBooked = appointments.some(
+                    (appt) =>
+                        current < appt.endTime &&
+                        next > appt.startTime
+                );
+
+                if (!isBooked) {
+                    slots.push({
+                        startTime: current,
+                        endTime: next,
+                    });
+                }
+
+                current = next;
+            }
+        }
+
+        return slots;
+    }
 }

@@ -28,4 +28,9 @@ export class AvailabilityController {
     findAll(@Query('providerId') providerId: string) {
         return this.availabilityService.getAvailability(providerId);
     }
+
+    @Get('available')
+    findAvailable(@Query('providerId') providerId: string) {
+        return this.availabilityService.getAvailableSlots(providerId);
+    }
 }
