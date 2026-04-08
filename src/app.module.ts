@@ -6,7 +6,6 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ProvidersModule } from './providers/providers.module';
 import { AvailabilityModule } from './availability/availability.module';
-import { BookingsModule } from './bookings/bookings.module';
 import { ConfigModule } from '@nestjs/config';
 import { SlotsService } from './slots/slots.service';
 import { SlotsController } from './slots/slots.controller';
@@ -15,7 +14,7 @@ import { AppointmentsModule } from './appointments/appointments.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),
-    PrismaModule, AuthModule, UsersModule, ProvidersModule, AvailabilityModule, BookingsModule, AppointmentsModule],
+    PrismaModule, AuthModule, UsersModule, ProvidersModule, AvailabilityModule, AppointmentsModule],
   controllers: [AppController, SlotsController],
   providers: [AppService, SlotsService],
 })
